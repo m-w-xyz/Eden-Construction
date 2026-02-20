@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { urlFor } from '@/lib/sanity.client'
 import type { Project } from '@/types'
 
@@ -20,7 +20,7 @@ const CONTAINER_ANIMATION = {
   transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const },
 }
 
-const ROW_ANIMATION = {
+const ROW_ANIMATION: Variants = {
   initial: { opacity: 0 },
   animate: (i: number) => ({
     opacity: 1,
