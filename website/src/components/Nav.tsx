@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTransitionPhase } from '@/contexts/TransitionContext'
 
 export default function Nav({ overlay = false, theme }: { overlay?: boolean; theme?: 'contact' }) {
@@ -15,8 +16,27 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
   const [closingAccordion, setClosingAccordion] = useState(false)
   const [accordionPanelSliding, setAccordionPanelSliding] = useState(false)
   const [navHidden, setNavHidden] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [accordionDropdownExpanded, setAccordionDropdownExpanded] = useState(false)
   const lastScrollY = useRef(0)
   const isHomePage = pathname === '/'
+
+  useEffect(() => setMounted(true), [])
+
+  // Slide-down: start collapsed then expand after paint so transition runs
+  useEffect(() => {
+    if (!open && !closingAccordion) {
+      setAccordionDropdownExpanded(false)
+      return
+    }
+    if (open && !closingAccordion) {
+      setAccordionDropdownExpanded(false)
+      const raf = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAccordionDropdownExpanded(true))
+      })
+      return () => cancelAnimationFrame(raf)
+    }
+  }, [open, closingAccordion])
 
   const SLIDE_DURATION_MS = 500
   const ACCORDION_FADE_OUT_MS = 500
@@ -205,26 +225,24 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
   const navText = theme === 'contact' ? '#1C1A18' : 'var(--charcoal)'
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-[transform,background-color] duration-300 ease-in-out"
+      className="fixed top-0 left-0 right-0 z-50 max-md:z-[100] transition-[transform,background-color] duration-300 ease-in-out"
       style={{
         backgroundColor: navBg,
         transform: !isHomePage && navHidden ? 'translateY(-100%)' : 'translateY(0)',
       }}
     >
 
-      {/* Nav links row — desktop: above logo; mobile: slides down smoothly via max-height transition */}
+      {/* Nav links row — desktop: in header; mobile: portaled to body so it always shows on top */}
       <div
-        className={`overflow-hidden max-md:fixed max-md:top-[72px] max-md:left-0 max-md:right-0 max-md:z-40 ${
-          open ? 'max-md:max-h-[calc(100dvh-72px)]' : 'max-md:max-h-0'
-        } ${
+        className={`overflow-hidden max-md:hidden ${
           (open && !closingAccordion) || (closingAccordion && !accordionPanelSliding)
             ? 'md:max-h-36'
             : 'md:max-h-0'
-        } max-md:transition-[max-height] max-md:duration-500 max-md:[transition-timing-function:cubic-bezier(0.22,1,0.36,1)] md:transition-[max-height] md:duration-500 md:ease-out`}
+        } md:transition-[max-height] md:duration-500 md:ease-out`}
         style={{ backgroundColor: navBg }}
       >
         <nav
-          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-[10px] pt-8 pb-8 max-md:absolute max-md:left-[2px] max-md:right-0 max-md:bottom-0 max-md:top-0 max-md:flex max-md:flex-col max-md:justify-end max-md:items-start max-md:gap-y-1.5 max-md:px-[10px] max-md:pb-24 max-md:pt-0"
+          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-[10px] pt-8 pb-8"
           style={{ color: navText }}
           aria-label="Main navigation"
         >
@@ -232,20 +250,56 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
             <Link
               key={href}
               href={href}
-              className={`uppercase font-bold hover:opacity-50 transition-opacity leading-none max-md:min-h-[44px] max-md:flex max-md:items-center ${
-                open && !closingAccordion ? 'accordion-nav-item-in' : ''
-              } ${closingAccordion ? 'accordion-nav-item-out' : ''} ${isActive(href.split('?')[0]) ? 'opacity-60' : ''}`}
-              style={{
-                ...linkStyle,
-                ...(open && !closingAccordion ? { animationDelay: `${280 + i * 55}ms` } : {}),
-                ...(closingAccordion ? { animationDelay: `${(navLinks.length - 1 - i) * 45}ms` } : {}),
-              }}
+              className={`uppercase font-bold hover:opacity-50 transition-opacity leading-none ${isActive(href.split('?')[0]) ? 'opacity-60' : ''}`}
+              style={linkStyle}
             >
               {label}
             </Link>
           ))}
         </nav>
       </div>
+
+      {/* Mobile only: dropdown portaled to body so it's never clipped or behind overlay */}
+      {mounted &&
+        typeof document !== 'undefined' &&
+        (open || closingAccordion) &&
+        createPortal(
+          <div
+            className="fixed left-0 right-0 bottom-0 overflow-hidden md:hidden"
+            style={{
+              top: '72px',
+              zIndex: 10002,
+              maxHeight: accordionDropdownExpanded ? 'calc(100dvh - 72px)' : '0',
+              backgroundColor: navBg,
+              transition: 'max-height 500ms cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
+            aria-hidden={!open && !closingAccordion}
+          >
+            <nav
+              className="absolute left-[2px] right-0 bottom-0 top-0 flex flex-col justify-end items-start gap-y-1.5 px-[10px] pb-24 pt-0"
+              style={{ color: navText }}
+              aria-label="Main navigation"
+            >
+              {navLinks.map(({ href, label }, i) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`uppercase font-bold hover:opacity-50 transition-opacity leading-none min-h-[44px] flex items-center ${
+                    open && !closingAccordion ? 'accordion-nav-item-in' : ''
+                  } ${closingAccordion ? 'accordion-nav-item-out' : ''} ${isActive(href.split('?')[0]) ? 'opacity-60' : ''}`}
+                  style={{
+                    ...linkStyle,
+                    ...(open && !closingAccordion ? { animationDelay: `${280 + i * 55}ms` } : {}),
+                    ...(closingAccordion ? { animationDelay: `${(navLinks.length - 1 - i) * 45}ms` } : {}),
+                  }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>,
+          document.body
+        )}
 
       {/* Logo row — always visible on top of dropdown; desktop: unchanged; mobile: logo 2/3 width, + same height as logo */}
       <div className="relative z-50 flex items-center justify-between gap-4 px-[10px] py-6" style={{ backgroundColor: navBg }}>
@@ -272,6 +326,7 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
                 setAccordionPanelSliding(false)
               }, ACCORDION_FADE_OUT_MS + SLIDE_DURATION_MS)
             } else {
+              setAccordionDropdownExpanded(false)
               setOpen(true)
             }
           }}
