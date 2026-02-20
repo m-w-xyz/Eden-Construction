@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/* ── Typefaces ──────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Aktiv Grotesk Ex';
+  src: url('/fonts/AktivGroteskEx-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeue-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeue-Roman.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Theme tokens ────────────────────────────────────────────────────────── */
+
+:root {
+  --sand: #C8B9A5;
+  --sand-light: #D8CFC4;
+  --sand-dark: #CABCAB;
+  --cream: #F5F0EA;
+  --charcoal: #1C1A18;
+  --mid: #6B6258;
+  --white: #FAFAF8;
+  --black: #000000;
+}
+
+@theme inline {
+  --color-sand: var(--sand);
+  --color-sand-light: var(--sand-light);
+  --color-sand-dark: var(--sand-dark);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-mid: var(--mid);
+  --color-black: var(--black);
+  --color-white-warm: var(--white);
+  --font-display: 'Aktiv Grotesk Ex', sans-serif;
+  --font-sans: 'Helvetica Neue', sans-serif;
+}
+
+/* ── Scoped component backgrounds (do not reuse) ──────────────────────────── */
+
+.about-values-section-bg {
+  background-color: #CAAF8C;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #EDE5D9;
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  line-height: 20px;
+}
+
+/* ── Type scale ──────────────────────────────────────────────────────────── */
+
+.display-01 {
+  font-family: 'Aktiv Grotesk Ex', sans-serif;
+  font-weight: 700;
+  font-size: 130px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.display-02 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 80px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-family: 'Aktiv Grotesk Ex', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-family: 'Aktiv Grotesk Ex', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+h4 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+
+.font-display {
+  font-family: 'Aktiv Grotesk Ex', sans-serif;
+  font-weight: 700;
+}
+
+.font-body-medium {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+}
+
+.segment-bg-cream {
+  background-color: transparent;
+}
+
+.segment-bg-warm {
+  background-color: #DBCAB2;
+}
+
+.testimonials-section-bg {
+  background-color: #CAAF8C;
+}
+
+.why-choose-us-bg {
+  background-color: #DBCAB2;
+}
+
+.statement {
+  font-family: 'Aktiv Grotesk Ex', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  height: 100%;
+}
+
+/* Hover: 50% opacity site-wide for links and buttons */
+a:hover,
+button:hover {
+  opacity: 0.5;
+}
+
+::selection {
+  background: #6B8CA3;
+  color: #ffffff;
+}
+
+/* ── Custom easing ───────────────────────────────────────────────────────── */
+
+:root {
+  --ease-custom: ease-in-out;
+}
+
+/* ── Page load animations ────────────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-page-fade {
+  animation: page-fade-in 1.2s var(--ease-custom) both;
+}
+
+/* ── Testimonial carousel slide ──────────────────────────────────────────── */
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-from-right {
+  animation: slide-in-from-right 0.35s ease-out both;
+}
+
+.animate-slide-in-from-left {
+  animation: slide-in-from-left 0.35s ease-out both;
+}
+
+/* ── Layout grid — 12 columns, 10px gutters, 10px margins ───────────────── */
+
+:root {
+  --grid-columns: 12;
+  --grid-gutter: 10px;
+  --grid-margin: 10px;
+  --nav-height: 72px;
+}
+
+.site-container {
+  width: 100%;
+  padding-left: var(--grid-margin);
+  padding-right: var(--grid-margin);
+}
+
+.site-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}
+
+/* ── Accordion nav: staggered fade-in/out for menu items (mobile) ───────────── */
+@keyframes accordion-nav-item-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes accordion-nav-item-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.accordion-nav-item-in {
+  animation: accordion-nav-item-fade-in 0.45s ease-out both;
+}
+
+.accordion-nav-item-out {
+  animation: accordion-nav-item-fade-out 0.35s ease-in both;
+}
+
+/* ── Mobile & tablet responsiveness (desktop unchanged) ───────────────────── */
+
+/* Tablet: 768px–1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .statement {
+    font-size: 32px;
+    line-height: 0.95;
+  }
+}
+
+/* Mobile: up to 767px */
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .statement {
+    font-size: 24px;
+    line-height: 1;
+    max-width: 100%;
+  }
+
+  /* Inline text links: extra tap padding without changing layout */
+  footer p a,
+  p a[href^="mailto:"],
+  p a[href^="tel:"] {
+    padding: 0.35em 0.15em;
+    margin: -0.35em -0.15em;
+  }
+}
