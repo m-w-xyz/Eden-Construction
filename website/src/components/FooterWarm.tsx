@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function FooterWarm() {
   return (
     <footer
-      className="flex flex-col gap-[120px] text-[var(--color-black)] bg-[#B89566] h-[476px] max-md:h-auto pb-[10px]"
+      className="relative z-[-1] flex flex-col gap-[120px] text-[var(--color-black)] bg-[#B89566] h-[476px] max-md:h-auto pb-[10px]"
     >
       {/* ── Top row: left column tagline, right half = two equal columns from center ── */}
       <div className="grid grid-cols-2 gap-8 px-[10px] pt-[10px] pb-[120px] max-md:grid-cols-1 max-md:gap-6 max-md:pb-8">

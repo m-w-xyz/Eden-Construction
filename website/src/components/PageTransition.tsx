@@ -22,6 +22,8 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const navigating = useRef(false)
   const prevPathname = useRef(norm(pathname))
   const fallbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const pendingHref = useRef<string | null>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
 
   const startReveal = () => {
     if (fallbackTimeout.current) {
@@ -30,6 +32,36 @@ export default function PageTransition({ children }: { children: React.ReactNode
     }
     setPhase('revealing')
   }
+
+  // When covering phase starts: navigate only after the navy overlay has fully faded in (transitionend)
+  useEffect(() => {
+    if (phase !== 'covering' || !pendingHref.current) return
+
+    const el = overlayRef.current
+    const href = pendingHref.current
+
+    const onTransitionEnd = (e: TransitionEvent) => {
+      if (e.target !== el || e.propertyName !== 'opacity') return
+      el?.removeEventListener('transitionend', onTransitionEnd)
+      setPhase('covered')
+      router.push(href)
+      pendingHref.current = null
+    }
+
+    const fallback = setTimeout(() => {
+      el?.removeEventListener('transitionend', onTransitionEnd)
+      setPhase('covered')
+      router.push(href)
+      pendingHref.current = null
+    }, FADE_MS + 80)
+
+    el?.addEventListener('transitionend', onTransitionEnd)
+
+    return () => {
+      el?.removeEventListener('transitionend', onTransitionEnd)
+      clearTimeout(fallback)
+    }
+  }, [phase, router])
 
   // When the route changes, wait for new page to paint then reveal
   useEffect(() => {
@@ -105,6 +137,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
       e.preventDefault()
       navigating.current = true
       prevPathname.current = currentPath
+      pendingHref.current = href
 
       // Jump to top immediately so the covered page and then the new page are at top (no scroll animation during transition)
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -114,12 +147,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
       } catch (_) {}
 
       setPhase('covering')
-
-      // Fade in completes, then navigate. New page loads behind overlay, then slide up.
-      setTimeout(() => {
-        setPhase('covered')
-        router.push(href)
-      }, FADE_MS)
+      // Navigation happens in transitionend (or fallback) so the blue is fully visible first
     }
 
     document.addEventListener('click', handleClick)
@@ -144,6 +172,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
     <TransitionProvider phase={phase}>
       {children}
       <div
+        ref={overlayRef}
         aria-hidden="true"
         style={{
           position:           'fixed',

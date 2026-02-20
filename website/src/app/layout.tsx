@@ -25,10 +25,12 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/HelveticaNeue-Roman.otf" as="font" type="font/otf" crossOrigin="anonymous" />
       </head>
       <body>
-        <PageTransition>
-          {children}
-          <ConditionalFooter />
-        </PageTransition>
+        <div style={{ position: 'relative', zIndex: 0 }}>
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </div>
+        <ConditionalFooter />
       </body>
     </html>
   )

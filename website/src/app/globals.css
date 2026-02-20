@@ -270,10 +270,12 @@ button:hover {
 }
 
 .accordion-nav-item-in {
+  will-change: opacity;
   animation: accordion-nav-item-fade-in 0.45s ease-out both;
 }
 
 .accordion-nav-item-out {
+  will-change: opacity;
   animation: accordion-nav-item-fade-out 0.35s ease-in both;
 }
 

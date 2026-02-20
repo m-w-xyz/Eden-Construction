@@ -5,6 +5,7 @@ import { urlFor } from '@/lib/sanity.client'
 import type { HomepageImageDoc } from '@/types'
 import Nav from '@/components/Nav'
 import SplashScreen from '@/components/SplashScreen'
+import HomepageTopLoaded from '@/components/HomepageTopLoaded'
 
 export const revalidate = 60
 
@@ -22,7 +23,7 @@ export default async function HomePage() {
           opacity: 1,
         }}
       />
-      {/* Client: handles the slide-up after page has loaded */}
+      {/* Client: handles the slide-up after top of page has loaded */}
       <SplashScreen />
 
       {/* Page content — starts invisible, revealed as splash slides away */}
@@ -31,6 +32,7 @@ export default async function HomePage() {
         <main className="relative w-full h-dvh min-h-screen overflow-hidden bg-[var(--charcoal)]">
           {data?.image?.asset ? (
             <Image
+              id="hero-image"
               src={urlFor(data.image).width(2400).quality(85).url()}
               alt={data.image.alt ?? 'Eden Construction'}
               fill
@@ -41,6 +43,7 @@ export default async function HomePage() {
           ) : (
             <div className="absolute inset-0 bg-[var(--sand-dark)]" />
           )}
+        <HomepageTopLoaded />
 
           {/* Subtle dark gradient at bottom for legibility */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" style={{ left: '-2px', top: '-1px' }} />

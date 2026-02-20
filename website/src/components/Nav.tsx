@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTransitionPhase } from '@/contexts/TransitionContext'
 
 export default function Nav({ overlay = false, theme }: { overlay?: boolean; theme?: 'contact' }) {
@@ -14,6 +14,9 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
   const [closing, setClosing] = useState(false)
   const [closingAccordion, setClosingAccordion] = useState(false)
   const [accordionPanelSliding, setAccordionPanelSliding] = useState(false)
+  const [navHidden, setNavHidden] = useState(false)
+  const lastScrollY = useRef(0)
+  const isHomePage = pathname === '/'
 
   const SLIDE_DURATION_MS = 500
   const ACCORDION_FADE_OUT_MS = 500
@@ -32,6 +35,25 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [overlay])
+
+  // Non-homepage: hide nav on scroll down, show on scroll up
+  const SCROLL_THRESHOLD = 80
+  useEffect(() => {
+    if (isHomePage) return
+    const onScroll = () => {
+      const y = window.scrollY
+      if (y <= SCROLL_THRESHOLD) {
+        setNavHidden(false)
+      } else if (y > lastScrollY.current) {
+        setNavHidden(true)
+      } else {
+        setNavHidden(false)
+      }
+      lastScrollY.current = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isHomePage])
 
   // Don't close accordion until transition is fully idle — prevents logo/+ jump during reveal
   useEffect(() => {
@@ -109,9 +131,9 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
 
         {/* Mobile only: sliding panel; logo at top so it is only visible when panel has slid up (masked). */}
         <div
-          className="fixed inset-0 z-[60] bg-[var(--cream)] md:hidden transition-transform duration-500 ease-out"
+          className="fixed inset-0 z-[60] bg-[var(--cream)] md:hidden will-change-transform transition-transform duration-500 ease-out"
           style={{
-            transform: open && !closing ? 'translateY(0)' : 'translateY(100%)',
+            transform: open && !closing ? 'translate3d(0, 0, 0)' : 'translate3d(0, 100%, 0)',
             visibility: open || closing ? 'visible' : 'hidden',
             pointerEvents: open && !closing ? 'auto' : 'none',
           }}
@@ -182,17 +204,23 @@ export default function Nav({ overlay = false, theme }: { overlay?: boolean; the
   const navBg = theme === 'contact' ? '#6B8CA3' : '#EDE5D9'
   const navText = theme === 'contact' ? '#1C1A18' : 'var(--charcoal)'
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out" style={{ backgroundColor: navBg }}>
+    <header
+      className="fixed top-0 left-0 right-0 z-50 transition-[transform,background-color] duration-300 ease-in-out"
+      style={{
+        backgroundColor: navBg,
+        transform: !isHomePage && navHidden ? 'translateY(-100%)' : 'translateY(0)',
+      }}
+    >
 
-      {/* Nav links row — desktop: above logo; mobile: drops down; on X tap links fade out then panel slides up */}
+      {/* Nav links row — desktop: above logo; mobile: slides down smoothly via max-height transition */}
       <div
-        className={`overflow-hidden transition-[max-height] ease-in-out max-md:fixed max-md:top-[72px] max-md:left-0 max-md:right-0 max-md:z-40 ${
-          (open && !closingAccordion) || closingAccordion ? 'max-md:h-[calc(100dvh-72px)] duration-500' : ''
+        className={`overflow-hidden max-md:fixed max-md:top-[72px] max-md:left-0 max-md:right-0 max-md:z-40 ${
+          open ? 'max-md:max-h-[calc(100dvh-72px)]' : 'max-md:max-h-0'
         } ${
           (open && !closingAccordion) || (closingAccordion && !accordionPanelSliding)
-            ? 'max-h-[calc(100dvh-72px)] md:max-h-36 duration-700'
-            : 'max-h-0 duration-500'
-        }`}
+            ? 'md:max-h-36'
+            : 'md:max-h-0'
+        } max-md:transition-[max-height] max-md:duration-500 max-md:[transition-timing-function:cubic-bezier(0.22,1,0.36,1)] md:transition-[max-height] md:duration-500 md:ease-out`}
         style={{ backgroundColor: navBg }}
       >
         <nav
