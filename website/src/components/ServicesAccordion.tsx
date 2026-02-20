@@ -46,7 +46,7 @@ export default function ServicesAccordion({ items }: Props) {
                 {item.heading}
               </p>
               <span
-                className={`shrink-0 ml-6 self-start font-normal text-base text-black transition-opacity duration-200 max-md:ml-0 ${
+                className={`shrink-0 ml-6 self-start font-normal text-base md:text-[20px] md:leading-[20px] text-black transition-opacity duration-200 max-md:ml-0 ${
                   isOpen ? 'opacity-100' : 'opacity-0'
                 }`}
               >
@@ -68,7 +68,7 @@ export default function ServicesAccordion({ items }: Props) {
                 {/* text cols 7–11, col 12 left as indent to match page */}
                 <div className="flex flex-col gap-8 pt-2 md:col-span-5">
                   {item.description && (
-                    <p className="text-black font-normal text-base">
+                    <p className="text-black font-normal text-base md:text-[20px] md:leading-[20px]">
                       {item.description}
                     </p>
                   )}

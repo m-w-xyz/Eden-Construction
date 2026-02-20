@@ -38,7 +38,7 @@ export default function ValuesSection({ values }: Props) {
 
           {/* Right — 80px padding, 1 col gap on right */}
           <div className="col-span-12 md:col-start-7 md:col-span-5">
-            <p className="pt-2.5 pb-20 max-md:pb-[60px] mt-5 font-normal text-base">{v.body}</p>
+            <p className="pt-2.5 pb-20 max-md:pb-[60px] mt-5 font-normal text-base md:text-[20px]">{v.body}</p>
           </div>
         </motion.div>
       ))}

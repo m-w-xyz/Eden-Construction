@@ -68,13 +68,13 @@ export default function TestimonialCarousel({ quotes }: Props) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="font-normal text-base text-[var(--charcoal)] flex flex-col flex-nowrap items-start justify-start gap-5 mt-[30px] max-md:gap-6">
-        <figcaption className="m-0 text-base font-medium">{authorLine || '—'}</figcaption>
+      <div className="font-normal text-base md:text-[20px] md:leading-[20px] text-[var(--charcoal)] flex flex-col flex-nowrap items-start justify-start gap-5 mt-[30px] max-md:gap-6">
+        <figcaption className="m-0 text-base md:text-[20px] md:leading-[20px] font-medium">{authorLine || '—'}</figcaption>
         <nav className="flex gap-6 max-md:gap-4" aria-label="Testimonial navigation">
           <button
             type="button"
             onClick={goPrev}
-            className="hover:opacity-50 transition-opacity bg-transparent border-0 cursor-pointer font-normal text-base text-[var(--charcoal)] p-0 max-md:py-2 max-md:min-h-[44px] max-md:flex max-md:items-center"
+            className="hover:opacity-50 transition-opacity bg-transparent border-0 cursor-pointer font-normal text-base md:text-[20px] md:leading-[20px] text-[var(--charcoal)] p-0 max-md:py-2 max-md:min-h-[44px] max-md:flex max-md:items-center"
             aria-label="Previous testimonial"
           >
             Previous
@@ -82,7 +82,7 @@ export default function TestimonialCarousel({ quotes }: Props) {
           <button
             type="button"
             onClick={goNext}
-            className="hover:opacity-50 transition-opacity bg-transparent border-0 cursor-pointer font-normal text-base text-[var(--charcoal)] p-0 max-md:py-2 max-md:min-h-[44px] max-md:flex max-md:items-center"
+            className="hover:opacity-50 transition-opacity bg-transparent border-0 cursor-pointer font-normal text-base md:text-[20px] md:leading-[20px] text-[var(--charcoal)] p-0 max-md:py-2 max-md:min-h-[44px] max-md:flex max-md:items-center"
             aria-label="Next testimonial"
           >
             Next

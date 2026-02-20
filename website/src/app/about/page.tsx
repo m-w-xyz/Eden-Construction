@@ -98,7 +98,7 @@ export default async function AboutPage() {
                   <a
                     key={href}
                     href={href}
-                    className="text-[16px] text-[var(--charcoal)] opacity-60 hover:opacity-50 transition-opacity max-md:inline-block"
+                    className="text-[16px] md:text-[20px] text-[var(--charcoal)] opacity-60 hover:opacity-50 transition-opacity max-md:inline-block"
                   >
                     {label}
                   </a>
@@ -108,20 +108,20 @@ export default async function AboutPage() {
 
             {/* Col 7–11: intro copy */}
             <div className="col-span-12 md:col-start-7 md:col-span-5">
-              <p className="mb-3 font-normal text-base">
+              <p className="mb-3 font-normal text-base md:text-[20px]">
                 We're a Fiji-based building company delivering New Zealand
                 standards and a solutions-driven approach to every project.
               </p>
-              <p className="mb-3 indent-[4em] font-normal text-base">
+              <p className="mb-3 indent-[4em] font-normal text-base md:text-[20px]">
                 From bespoke homes to large-scale commercial builds, we focus on
                 quality, precision, and efficiency at every stage.
               </p>
-              <p className="mb-3 indent-[4em] font-normal text-base">
+              <p className="mb-3 indent-[4em] font-normal text-base md:text-[20px]">
                 Our experienced team thrives on collaboration and is committed to
                 exceeding expectations, no matter the size or complexity of the
                 job.
               </p>
-              <p className="indent-[4em] font-normal text-base">
+              <p className="indent-[4em] font-normal text-base md:text-[20px]">
                 Through strong local partnerships and international supply
                 networks, we source premium materials at competitive rates,
                 ensuring every build is completed to the highest standard, on
@@ -182,14 +182,14 @@ export default async function AboutPage() {
                 <h2 className="font-body-medium text-[20px] md:text-[24px]">Services</h2>
               </div>
               <div className="col-span-12 md:col-start-7 md:col-span-5 flex flex-col gap-8">
-                <p className="font-normal text-base">
+                <p className="font-normal text-base md:text-[20px]">
                   {aboutData?.servicesIntroduction ??
                     'We partner with architects, engineers, trades, and suppliers to deliver every project with precision, quality, and efficiency — no matter the scale.'}
                 </p>
                 <div>
                   <Link
                     href={aboutData?.servicesButtonLink ?? '/process'}
-                    className="inline-flex items-center gap-2 font-normal text-base tracking-normal text-[var(--charcoal)] no-underline hover:opacity-50 transition-opacity"
+                    className="inline-flex items-center gap-2 font-normal text-base md:text-[20px] md:leading-[20px] tracking-normal text-[var(--charcoal)] no-underline hover:opacity-50 transition-opacity"
                   >
                     {aboutData?.servicesButtonText ?? 'See our process'}
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0">
@@ -236,7 +236,7 @@ export default async function AboutPage() {
                 <h2 className="font-body-medium text-[20px] md:text-[24px]">Management Team</h2>
               </div>
               <div className="col-span-12 md:col-start-7 md:col-span-5">
-                <p className="font-normal font-sans text-base">Local Expertise.</p>
+                <p className="font-normal font-sans text-base md:text-[20px]">Local Expertise.</p>
               </div>
             </div>
 
@@ -265,16 +265,16 @@ export default async function AboutPage() {
 
                     {/* Text — starts at col 7 (50% mark) */}
                     <div className="col-span-12 md:col-start-7 md:col-span-5 flex flex-col">
-                      <p className="font-bold text-base mb-1">{person.name}</p>
+                      <p className="font-bold text-base md:text-[20px] mb-1">{person.name}</p>
                       {person.title && (
-                        <p className="mb-10 font-normal font-sans text-base">{person.title}</p>
+                        <p className="mb-10 font-normal font-sans text-base md:text-[20px]">{person.title}</p>
                       )}
                       {person.bio && (
-                        <p className="whitespace-pre-line mb-14 font-normal font-sans text-base">{person.bio}</p>
+                        <p className="whitespace-pre-line mb-14 font-normal font-sans text-base md:text-[20px]">{person.bio}</p>
                       )}
                       <div className="flex flex-col gap-2 max-md:gap-3">
                         {person.fijiPhone && (
-                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base">
+                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base md:text-[20px]">
                             <span>Fiji</span>
                             <a href={`tel:${person.fijiPhone}`} className="hover:opacity-50 transition-opacity py-1">
                               {person.fijiPhone}
@@ -282,7 +282,7 @@ export default async function AboutPage() {
                           </p>
                         )}
                         {person.nzPhone && (
-                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base">
+                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base md:text-[20px]">
                             <span>NZ</span>
                             <a href={`tel:${person.nzPhone}`} className="hover:opacity-50 transition-opacity py-1">
                               {person.nzPhone}
@@ -290,7 +290,7 @@ export default async function AboutPage() {
                           </p>
                         )}
                         {person.email && (
-                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base">
+                          <p className="flex gap-16 max-md:gap-4 flex-wrap font-normal font-sans text-base md:text-[20px]">
                             <span>Email</span>
                             <a href={`mailto:${person.email}`} className="hover:opacity-50 transition-opacity py-1">
                               {person.email}

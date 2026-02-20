@@ -118,7 +118,7 @@ export default async function ProcessPage() {
                   <a
                     key={href}
                     href={href}
-                    className="text-[16px] text-[var(--charcoal)] opacity-60 hover:opacity-50 transition-opacity max-md:inline-block"
+                    className="text-[16px] md:text-[20px] text-[var(--charcoal)] opacity-60 hover:opacity-50 transition-opacity max-md:inline-block"
                   >
                     {label}
                   </a>
@@ -131,12 +131,12 @@ export default async function ProcessPage() {
                     .split(/\n\n+/)
                     .filter(Boolean)
                     .map((paragraph, i) => (
-                      <p key={i} className="mb-3 font-normal text-base text-[var(--charcoal)] leading-relaxed">
+                      <p key={i} className="mb-3 font-normal text-base md:text-[20px] text-[var(--charcoal)] leading-relaxed md:leading-[20px]">
                         {paragraph.trim()}
                       </p>
                     ))
                 : (
-                  <p className="mb-3 font-normal text-base text-[var(--charcoal)] leading-relaxed">
+                  <p className="mb-3 font-normal text-base md:text-[20px] text-[var(--charcoal)] leading-relaxed md:leading-[20px]">
                     Our collaborative process enables the best outcomes. Through
                     clear communication and meticulous planning, we deliver
                     results that exceed expectations at every stage.
@@ -178,7 +178,7 @@ export default async function ProcessPage() {
                       >
                           {step.title}
                         </h2>
-                        <p className="font-normal text-base text-[var(--charcoal)] leading-relaxed">
+                        <p className="font-normal text-base md:text-[20px] text-[var(--charcoal)] leading-relaxed md:leading-[20px]">
                           {step.body}
                         </p>
                       </div>
@@ -229,7 +229,7 @@ export default async function ProcessPage() {
                   <p className="col-span-10 md:col-span-4 m-0 font-body-medium text-[20px] text-[var(--charcoal)] md:col-start-3">
                     {item.title}
                   </p>
-                  <p className="col-span-12 md:col-span-6 md:col-start-7 m-0 font-normal text-base text-[var(--charcoal)] leading-relaxed mt-2 md:mt-0 mr-[calc(100%/12)] max-md:mr-0">
+                  <p className="col-span-12 md:col-span-6 md:col-start-7 m-0 font-normal text-base md:text-[20px] text-[var(--charcoal)] leading-relaxed md:leading-[20px] mt-2 md:mt-0 mr-[calc(100%/12)] max-md:mr-0">
                     {item.body}
                   </p>
                 </div>

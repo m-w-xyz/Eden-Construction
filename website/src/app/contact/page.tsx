@@ -65,7 +65,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   form="contact-form"
-                  className="text-[16px] md:text-[24px] font-normal tracking-normal text-[var(--charcoal)] hover:opacity-50 transition-opacity max-md:py-3 max-md:min-h-[48px] max-md:flex max-md:items-center max-md:self-start"
+                  className="text-[16px] md:text-[20px] md:leading-[20px] font-normal tracking-normal text-[var(--charcoal)] hover:opacity-50 transition-opacity max-md:py-3 max-md:min-h-[48px] max-md:flex max-md:items-center max-md:self-start"
                 >
                   Email
                 </button>
@@ -87,7 +87,7 @@ export default function ContactPage() {
               <form id="contact-form" onSubmit={handleSubmit} className="flex flex-col gap-6 max-md:gap-8">
                 {/* Name */}
                 <div>
-                  <label className="block font-sans font-normal text-[16px] md:text-[20px] text-[var(--charcoal)] mb-2">
+                  <label className="block font-sans font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] mb-2">
                     Name
                   </label>
                   <input
@@ -103,7 +103,7 @@ export default function ContactPage() {
                 {/* Phone + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block font-sans font-normal text-[16px] md:text-[20px] text-[var(--charcoal)] mb-2">
+                    <label className="block font-sans font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] mb-2">
                       Phone Number
                     </label>
                     <input
@@ -115,7 +115,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block font-sans font-normal text-[16px] md:text-[20px] text-[var(--charcoal)] mb-2">
+                    <label className="block font-sans font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] mb-2">
                       Email Address
                     </label>
                     <input
@@ -132,13 +132,13 @@ export default function ContactPage() {
                 {/* Project type — 2-col grid aligned with Phone/Email, options stacked vertically */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block font-sans font-normal text-[16px] md:text-[20px] text-[var(--charcoal)] mb-2">
+                    <label className="block font-sans font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] mb-2">
                       Project Type
                     </label>
                   </div>
                   <div className="flex flex-col gap-2">
                     {(['residential', 'commercial'] as const).map((type) => (
-                      <label key={type} className="flex items-center justify-between cursor-pointer font-normal text-[16px] md:text-[20px] text-[var(--charcoal)]">
+                      <label key={type} className="flex items-center justify-between cursor-pointer font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)]">
                         <span className="capitalize">{type}</span>
                         <input
                           type="radio"
@@ -157,7 +157,7 @@ export default function ContactPage() {
 
                 {/* Message */}
                 <div>
-                  <label className="block font-sans font-normal text-[16px] md:text-[20px] text-[var(--charcoal)] mb-2">
+                  <label className="block font-sans font-normal text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] mb-2">
                     Message
                   </label>
                   <textarea

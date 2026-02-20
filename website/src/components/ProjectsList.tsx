@@ -217,16 +217,16 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
                     onMouseMove={handleRowMouseMove}
                     onMouseLeave={handleRowMouseLeave}
                   >
-                    <p className="col-span-3 col-start-1 font-body-medium text-[16px] text-[var(--charcoal)] text-left max-md:col-span-1 max-md:col-start-1">
+                    <p className="col-span-3 col-start-1 font-body-medium text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] text-left max-md:col-span-1 max-md:col-start-1">
                       {project.title}
                     </p>
-                    <p className="col-start-4 font-body-medium text-[16px] text-[var(--charcoal)] capitalize text-left max-md:col-start-1">
+                    <p className="col-start-4 font-body-medium text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] capitalize text-left max-md:col-start-1">
                       {project.category}
                     </p>
-                    <p className="col-start-7 w-[171px] font-body-medium text-[16px] text-[var(--charcoal)] text-left max-md:col-start-1 max-md:w-auto">
+                    <p className="col-start-7 w-[171px] font-body-medium text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] text-left max-md:col-start-1 max-md:w-auto">
                       {project.year ? `Completed ${project.year}` : ''}
                     </p>
-                    <span className="col-start-12 font-body-medium text-[16px] text-[var(--charcoal)] whitespace-nowrap justify-self-end max-md:col-start-1 max-md:justify-self-start max-md:pt-1">
+                    <span className="col-start-12 font-body-medium text-[16px] md:text-[20px] md:leading-[20px] text-[var(--charcoal)] whitespace-nowrap justify-self-end max-md:col-start-1 max-md:justify-self-start max-md:pt-1">
                       View Project
                     </span>
                   </Link>
@@ -318,10 +318,10 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
                       </p>
                     </div>
                     <div className="flex justify-between items-end gap-4 max-md:gap-2">
-                      <p className="font-body-medium text-[20px] max-md:text-[16px] text-[var(--charcoal)] text-left">
+                      <p className="font-body-medium text-[20px] max-md:text-[16px] md:leading-[20px] text-[var(--charcoal)] text-left">
                         {project.year ? `Completed ${project.year}` : ''}
                       </p>
-                      <span className="font-body-medium text-[20px] max-md:text-[16px] text-[var(--charcoal)] shrink-0 group-hover:opacity-50 transition-opacity">
+                      <span className="font-body-medium text-[20px] max-md:text-[16px] md:leading-[20px] text-[var(--charcoal)] shrink-0 group-hover:opacity-50 transition-opacity">
                         View Project
                       </span>
                     </div>

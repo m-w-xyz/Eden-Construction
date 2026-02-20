@@ -157,7 +157,7 @@ export default async function ProjectDetailPage(props: Props) {
             {/* Right: Description — indented 1 column (start col 7 like About) */}
             <div className="col-span-12 md:col-start-7 md:col-span-5 min-w-0 max-md:pt-2">
               {project.description ? (
-                <div className="font-normal text-[20px] max-md:text-[16px] text-[var(--charcoal)] leading-relaxed whitespace-pre-line">
+                <div className="font-normal text-[20px] max-md:text-[16px] text-[var(--charcoal)] leading-relaxed md:leading-[20px] whitespace-pre-line">
                   {project.description.split(/\n\n+/).filter(Boolean).map((paragraph, i) => (
                     <p key={i} className="mb-3 last:mb-0">
                       {paragraph.trim()}
