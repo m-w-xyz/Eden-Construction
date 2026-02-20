@@ -205,9 +205,10 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
                 <motion.div
                   key={project._id}
                   custom={i}
-                  initial={ROW_ANIMATION.initial}
-                  animate={ROW_ANIMATION.animate}
-                  exit={ROW_ANIMATION.exit}
+                  variants={ROW_ANIMATION}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 >
                   <Link
                     href={`/projects/${project.slug.current}`}
@@ -274,11 +275,12 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
                 <motion.div
                   key={project._id}
                   data-index={i}
-                custom={i}
-                initial={ROW_ANIMATION.initial}
-                animate={ROW_ANIMATION.animate}
-                exit={ROW_ANIMATION.exit}
-              >
+                  custom={i}
+                  variants={ROW_ANIMATION}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
                 <Link
                   href={`/projects/${project.slug.current}`}
                   className="group grid grid-cols-12 max-md:grid-cols-1 gap-x-2.5 border-b border-[var(--charcoal)] pt-2.5 pb-[30px] opacity-100 hover:!opacity-100 block"
